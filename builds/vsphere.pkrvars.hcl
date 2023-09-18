@@ -1,3 +1,6 @@
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 /*
     DESCRIPTION:
     VMware vSphere variables used for all builds.

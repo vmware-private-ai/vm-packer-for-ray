@@ -1,4 +1,6 @@
 #!/bin/bash
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
 
 set -x
 exec 2>/root/ic-customization.log

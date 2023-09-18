@@ -98,4 +98,4 @@ builds/linux/debian
 
 ## Reference
 
-- For more information please refer to [Packer Examples for VMware vSphere](packer-example-for-vmware-vsphere)
+- For more information please refer to [Packer Examples for VMware vSphere](https://github.com/vmware-samples/packer-examples-for-vsphere)

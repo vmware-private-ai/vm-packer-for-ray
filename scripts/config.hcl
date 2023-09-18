@@ -1,3 +1,6 @@
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 # vSphere credentials
 vsphere_endpoint = "10.78.126.248"
 vsphere_username = "administrator@vsphere.local"

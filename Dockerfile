@@ -1,3 +1,6 @@
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 FROM ubuntu:22.04
 
 RUN apt update -y

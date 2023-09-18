@@ -1,4 +1,7 @@
-# This file should't be pushed to open-source repo
+#!/bin/bash
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
 version=latest
 repository="packer-builder"
 

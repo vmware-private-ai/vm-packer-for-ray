@@ -23,7 +23,7 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-packer_builder_image="harbor-repo.vmware.com/ray/packer-builder:latest"
+packer_builder_image="packer-builder:latest"
 # Build packer-builder image if not exists
 if [[ "$(docker images -q ${packer_builder_image} 2> /dev/null)" == "" ]]; then
   ./build-packer-image.sh

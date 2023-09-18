@@ -18,15 +18,15 @@ echo -e "\n=== Start Post-Freeze ==="
 
 for NETDEV in /sys/class/net/e*
 do
-        DEVICE_LABEL=$(basename $(readlink -f "$NETDEV/device"))
-        DEVICE_DRIVER=$(basename $(readlink -f "$NETDEV/device/driver"))
-        echo $DEVICE_LABEL > /sys/bus/pci/drivers/$DEVICE_DRIVER/unbind
-        echo $DEVICE_LABEL > /sys/bus/pci/drivers/$DEVICE_DRIVER/bind
+        DEVICE_LABEL=$(basename "$(readlink -f "$NETDEV/device")")
+        DEVICE_DRIVER=$(basename "$(readlink -f "$NETDEV/device/driver")")
+        echo "$DEVICE_LABEL" > /sys/bus/pci/drivers/"$DEVICE_DRIVER"/unbind
+        echo "$DEVICE_LABEL" > /sys/bus/pci/drivers/"$DEVICE_DRIVER"/bind
 done
 
 uuid_number=$(cat /proc/sys/kernel/random/uuid)
 echo "Updating Hostname ..."
-hostnamectl set-hostname ${uuid_number}
+hostnamectl set-hostname "${uuid_number}"
 
 echo "Restart networking ..."
 

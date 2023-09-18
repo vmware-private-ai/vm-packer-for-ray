@@ -1,6 +1,6 @@
 name: Pylint
 
-on: [push]
+on: [pull_request]
 
 jobs:
   build:
@@ -21,3 +21,7 @@ jobs:
     - name: Analysing the code with pylint
       run: |
         pylint $(git ls-files '*.py')
+    - name: Check the Shell scripts
+      uses: azohra/shell-linter@latest
+      with:
+          path: $(git ls-files '*.py')

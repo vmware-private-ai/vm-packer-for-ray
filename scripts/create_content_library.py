@@ -26,7 +26,8 @@ def get_unverified_session():
 
 
 def login(stub_config, user, pwd):
-    user_password_security_context = create_user_password_security_context(user, pwd)
+    user_password_security_context = create_user_password_security_context(
+        user, pwd)
     stub_config.connector.set_security_context(user_password_security_context)
     session_svc = Session(stub_config)
     session_id = session_svc.create()
@@ -43,7 +44,8 @@ class ContentLibService:
             self.vsphere_username = config.get("vsphere_username")
             self.vsphere_password = config.get("vsphere_password")
             self.vm_datastore = config.get("vsphere_datastore")
-            self.common_content_library_name = config.get("common_content_library_name")
+            self.common_content_library_name = config.get(
+                "common_content_library_name")
         self.si = self.connect_vmomi()
         self.cls = self.init_content_library_service()
 
@@ -80,7 +82,8 @@ class ContentLibService:
             return "https://{}/api".format(host)
 
         vc_url = get_jsonrpc_endpoint_url(self.vsphere_endpoint)
-        connector = get_requests_connector(session=get_unverified_session(), url=vc_url)
+        connector = get_requests_connector(
+            session=get_unverified_session(), url=vc_url)
         stub_config = StubConfigurationFactory.new_std_configuration(connector)
         return login(stub_config, self.vsphere_username, self.vsphere_password)
 
@@ -117,7 +120,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         raise RuntimeError(
             f"Unexpected: Usage: python {sys.argv[0]} <CONFIG_FILE_PATH>"
-    )
+        )
     try:
         s = ContentLibService(sys.argv[1])
         libs = s.list_content_libs()
@@ -127,8 +130,7 @@ if __name__ == "__main__":
             if lib_mo.name == s.common_content_library_name:
                 print(
                     f"content lib with name {s.common_content_library_name} exists,"
-                    f"no need to create one"
-                )
+                    f"no need to create one")
                 content_lib_exist = True
                 break
         if not content_lib_exist:

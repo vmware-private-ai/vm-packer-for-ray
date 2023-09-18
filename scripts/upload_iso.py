@@ -44,7 +44,8 @@ class IsoUploader:
         datastores = datastore_view.view
         for datastore in datastores:
             if datastore.name == self.iso_datastore:
-                print(f"found the datastore {datastore} with name {self.iso_datastore}")
+                print(
+                    f"found the datastore {datastore} with name {self.iso_datastore}")
                 return datastore
         raise RuntimeError(
             f"Unexpected: cannot find the datastore with name {self.common_iso_datastore}"
@@ -53,7 +54,7 @@ class IsoUploader:
     def get_dc_mo(self, datastore_mo):
         assert self.iso_datastore
         mo = datastore_mo
-        while type(mo) != vim.Datacenter:
+        while not isinstance(mo, vim.Datacenter):
             mo = mo.parent
         print(f"datacenter is {mo}")
         return mo
@@ -68,8 +69,13 @@ class IsoUploader:
         cookie_name = client_cookie.split("=", 1)[0]
         cookie_value = client_cookie.split("=", 1)[1].split(";", 1)[0]
         cookie_path = (
-            client_cookie.split("=", 1)[1].split(";", 1)[1].split(";", 1)[0].lstrip()
-        )
+            client_cookie.split(
+                "=",
+                1)[1].split(
+                ";",
+                1)[1].split(
+                ";",
+                1)[0].lstrip())
         cookie_text = " " + cookie_value + "; $" + cookie_path
         return {cookie_name: cookie_text}
 
@@ -82,7 +88,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         raise RuntimeError(
             f"Unexpected: Usage: python {sys.argv[0]} <CONFIG_FILE_PATH>"
-    )
+        )
     try:
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
         ssl_context.verify_mode = ssl.CERT_NONE

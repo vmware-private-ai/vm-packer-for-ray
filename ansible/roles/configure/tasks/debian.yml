@@ -1,0 +1,50 @@
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+---
+- name: "Configure SSH for Public Key Authentication."
+  shell: |
+    sudo sed -i 's/.*PubkeyAuthentication.*/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+- name: "Setting hostname to localhost."
+  shell: |
+    cat /dev/null > /etc/hostname
+    hostnamectl set-hostname localhost
+- name: "Restarting the SSH daemon."
+  shell: |
+    sudo systemctl restart sshd
+- name: "Disabling and clean tmp."
+  shell: |
+    sudo sed -i 's/D/#&/' /usr/lib/tmpfiles.d/tmp.conf
+- name: "Setting SSH keys to regenerate on reboot, if neccessary."
+  shell: |
+    sudo tee /etc/rc.local << EOF
+    #!/bin/bash
+    test -f /etc/ssh/ssh_host_dsa_key || dpkg-reconfigure openssh-server
+    exit 0
+    EOF
+    sudo chmod +x /etc/rc.local
+- name: "Setting guest operating system information."
+  shell: |
+    sudo tee -a /etc/vmware-tools/tools.conf << EOF
+    [guestosinfo]
+    short-name = other5xLinux64Guest
+    EOF
+- name: "Configuring the resolve conf."
+  shell: |
+    echo nameserver 8.8.8.8 >> /etc/resolvconf/resolv.conf.d/base && sudo resolvconf -u
+- name: "Configuring the cloud.cfg for cloud-init."
+  shell: |
+    echo disable_vmware_customization: false >> /etc/cloud/cloud.cfg && sudo resolvconf -u
+    echo disable_vmware_customization: false >> /etc/cloud/cloud.cfg && sudo resolvconf -u
+- name: "Copying customize.sh to /root"
+  shell: |
+    sudo cp /tmp/*sh /root/
+- name: "Installing the Instant Clone Customization Engine."
+  shell: |
+    sudo /usr/bin/dpkg -i --force-all /tmp/vmware-gosc_12.1.0.25580-20029049_amd64.deb >> ./dpkg.log 2>&1
+- name: "Pulling latest docker image from {{RAY_DOCKER_IMAGE}}"
+  shell: |
+    sudo systemctl daemon-reload && sudo sudo systemctl restart docker && sudo docker pull {{RAY_DOCKER_IMAGE}}
+- name: "Creating the Cronjob for running the script at reboot."
+  shell: |
+    sudo chmod +x /root/customize.sh && sudo touch /etc/crontab && sudo crontab -l; echo "@reboot /root/customize.sh" | crontab -

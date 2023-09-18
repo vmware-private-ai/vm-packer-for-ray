@@ -1,0 +1,8 @@
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+---
+- name: "Configure users on {{ ansible_facts['distribution'] }} guest operating system."
+  include_tasks: linux.yml
+  when: "ansible_facts['distribution'] == 'Debian'"
+  

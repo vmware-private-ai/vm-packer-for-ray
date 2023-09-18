@@ -1,0 +1,14 @@
+# Copyright 2023 VMware, Inc.
+# SPDX-License-Identifier: Apache-2.0
+
+---
+- become: "yes"
+  become_method: sudo
+  debugger: never
+  gather_facts: "yes"
+  hosts: all
+  roles:
+    - base
+    - users
+    - configure
+    - clean

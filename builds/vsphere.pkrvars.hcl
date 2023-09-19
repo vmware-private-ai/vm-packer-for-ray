@@ -31,6 +31,10 @@ build_password           = "rayonvsphere"
 build_password_encrypted = "$6$nJRHFmOOtbg2rYU4$FlFMaZ3BFMisZZ1C55jn7xwQUMTxGzdVptZfztPjWEOJuDOSFnKTXsjULxm3w/fsbAKb6s.AKKYhvLt2tqaLI0"
 build_key                = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCxH/gSS8kErNVCfFxiYLJpi0t0/JrkcuAsGbUn20W2DSP1iqhJ/5cmEx2eHrEh3e5+qH/H4jZzY7zooz4qiEJ8yiWF09KcptKOlAq4JrIFzM+APR+74Qe9OBj4Jp+I5QmdomPgcz659X3iYfqYL4Kxs3vZ9sY4CnvIaY+lhqPyBpomZdBo6Dcek/HGb/ljKTfpHKujc9+5NouowAXhoRyS/rPMmZbt+xy+QUTBBe0VsbMfy7R8eSkHmbQhDugnqZ8Iyiy4zgQFFocWD38lBiXaPzYbDgcDM/JpQlhFuH4Xve/vr2KGef765699G+3Ia8t+MTlTUEbFxc395/YTUgmR"
 
+// Frozen Virtual Machine Settings
+frozen_vm_pool_name     = "frozen-vm"
+frozen_vm_prefix_name   = "frozen-vm"
+
 // Virtual Machine Settings
 common_vm_version           = 20
 common_tools_upgrade_policy = true

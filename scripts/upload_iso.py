@@ -8,6 +8,7 @@ import hcl
 import requests
 from pyVim.connect import Disconnect, SmartConnect
 from pyVmomi import vim
+from pyvmomi_client import PyvmomiClient
 
 # This is the path where we will store the iso file in our wizard container
 LOCAL_ISO_PATH = "/dependencies/debian-12.0.0-amd64-netinst.iso"
@@ -22,34 +23,8 @@ class IsoUploader:
             self.vsphere_password = config.get("vsphere_password")
             self.iso_datastore = config.get("common_iso_datastore")
             self.iso_path = config.get("iso_path")
-        self.si = self.connect_vmomi()
+        self.pyvmomi_provider = PyvmomiClient(self.vsphere_endpoint, self.vsphere_username, self.vsphere_password)
 
-    def connect_vmomi(self):
-        si = SmartConnect(
-            host=self.vsphere_endpoint,
-            user=self.vsphere_username,
-            pwd=self.vsphere_password,
-            sslContext=ssl._create_unverified_context(),
-        )
-        print("vmomi connect")
-        return si
-
-    def disconnect_vmomi(self):
-        Disconnect(self.si)
-
-    def get_datastore_mo(self):
-        datastore_view = self.si.content.viewManager.CreateContainerView(
-            container=self.si.content.rootFolder, type=[vim.Datastore], recursive=True
-        )
-        datastores = datastore_view.view
-        for datastore in datastores:
-            if datastore.name == self.iso_datastore:
-                print(
-                    f"found the datastore {datastore} with name {self.iso_datastore}")
-                return datastore
-        raise RuntimeError(
-            f"Unexpected: cannot find the datastore with name {self.common_iso_datastore}"
-        )
 
     def get_dc_mo(self, datastore_mo):
         assert self.iso_datastore
@@ -65,7 +40,7 @@ class IsoUploader:
         return url
 
     def build_cookie(self):
-        client_cookie = self.si._stub.cookie
+        client_cookie = self.pyvmomi_provider.smart_connect_obj._stub.cookie
         cookie_name = client_cookie.split("=", 1)[0]
         cookie_value = client_cookie.split("=", 1)[1].split(";", 1)[0]
         cookie_path = (
@@ -90,10 +65,10 @@ if __name__ == "__main__":
             f"Unexpected: Usage: python {sys.argv[0]} <CONFIG_FILE_PATH>"
         )
     try:
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-        ssl_context.verify_mode = ssl.CERT_NONE
+        # ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
+        # ssl_context.verify_mode = ssl.CERT_NONE
         iu = IsoUploader(sys.argv[1])
-        ds_mo = iu.get_datastore_mo()
+        ds_mo = iu.pyvmomi_provider.get_pyvmomi_obj([vim.Datastore], iu.iso_datastore)
         dc_mo = iu.get_dc_mo(ds_mo)
         url = iu.construct_upload_url()
         print(f"the url for the upload is {url}")
@@ -117,5 +92,3 @@ if __name__ == "__main__":
             print(res.request)
     except:  # noqa: E722
         traceback.print_exc()
-    finally:
-        iu.disconnect_vmomi()

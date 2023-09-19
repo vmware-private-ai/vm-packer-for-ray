@@ -51,7 +51,7 @@ class CloneFrozenVMService:
         WaitForTask(vm.Relocate(relocate_spec))
         return
     
-    def  get_hosts_not_have_frozen_vm(self, frozen_vm):
+    def get_hosts_not_have_frozen_vm(self, frozen_vm):
         # get all hosts
         hosts = cf.pyvmomi_provider.list_pyvmomi_objs([vim.HostSystem])
         print(f"all_hosts= {hosts}")

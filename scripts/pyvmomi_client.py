@@ -3,7 +3,8 @@ import ssl
 from pyVim.connect import Disconnect, SmartConnect
 from pyVmomi import vim
 
-class PyvmomiClient:    
+
+class PyvmomiClient:
     def __init__(self, server, user, password):
         self.smart_connect_obj = SmartConnect(
             host=server,
@@ -12,12 +13,12 @@ class PyvmomiClient:
             sslContext=ssl._create_unverified_context(),
         )
         atexit.register(Disconnect, self.smart_connect_obj)
-        
+
         self.pyvmomi_sdk_client = self.smart_connect_obj.content
 
     def get_client(self):
         return self.pyvmomi_sdk_client
-    
+
     def list_pyvmomi_objs(self, vimtype):
         obj = None
         if self.pyvmomi_sdk_client is None:
@@ -26,10 +27,9 @@ class PyvmomiClient:
         container = self.pyvmomi_sdk_client.viewManager.CreateContainerView(
             self.pyvmomi_sdk_client.rootFolder, vimtype, True
         )
-        
+
         return container.view
 
-        
     def get_pyvmomi_obj(self, vimtype, name):
         """
         This function finds the vSphere object by the object name and the object type.
@@ -50,7 +50,5 @@ class PyvmomiClient:
             if c.name == name:
                 obj = c
                 return c
-    
+
         return None
-    
-        

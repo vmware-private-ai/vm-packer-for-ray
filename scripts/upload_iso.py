@@ -23,8 +23,10 @@ class IsoUploader:
             self.vsphere_password = config.get("vsphere_password")
             self.iso_datastore = config.get("common_iso_datastore")
             self.iso_path = config.get("iso_path")
-        self.pyvmomi_provider = PyvmomiClient(self.vsphere_endpoint, self.vsphere_username, self.vsphere_password)
-
+        self.pyvmomi_provider = PyvmomiClient(
+            self.vsphere_endpoint,
+            self.vsphere_username,
+            self.vsphere_password)
 
     def get_dc_mo(self, datastore_mo):
         assert self.iso_datastore
@@ -65,10 +67,9 @@ if __name__ == "__main__":
             f"Unexpected: Usage: python {sys.argv[0]} <CONFIG_FILE_PATH>"
         )
     try:
-        # ssl_context = ssl.SSLContext(ssl.PROTOCOL_SSLv23)
-        # ssl_context.verify_mode = ssl.CERT_NONE
         iu = IsoUploader(sys.argv[1])
-        ds_mo = iu.pyvmomi_provider.get_pyvmomi_obj([vim.Datastore], iu.iso_datastore)
+        ds_mo = iu.pyvmomi_provider.get_pyvmomi_obj(
+            [vim.Datastore], iu.iso_datastore)
         dc_mo = iu.get_dc_mo(ds_mo)
         url = iu.construct_upload_url()
         print(f"the url for the upload is {url}")

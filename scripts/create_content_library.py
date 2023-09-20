@@ -18,6 +18,7 @@ from vmware.vapi.security.user_password import create_user_password_security_con
 from vmware.vapi.stdlib.client.factories import StubConfigurationFactory
 from pyvmomi_client import PyvmomiClient
 
+
 def get_unverified_session():
     session = requests.session()
     session.verify = False
@@ -46,9 +47,11 @@ class ContentLibService:
             self.vm_datastore = config.get("vsphere_datastore")
             self.common_content_library_name = config.get(
                 "common_content_library_name")
-        self.pyvmomi_provider = PyvmomiClient(self.vsphere_endpoint, self.vsphere_username, self.vsphere_password)
+        self.pyvmomi_provider = PyvmomiClient(
+            self.vsphere_endpoint,
+            self.vsphere_username,
+            self.vsphere_password)
         self.cls = self.init_content_library_service()
-
 
     def connect(self):
         def get_jsonrpc_endpoint_url(host):

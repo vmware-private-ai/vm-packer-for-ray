@@ -61,7 +61,7 @@ variable "vsphere_host" {
 variable "frozen_vm_pool_name" {
   type        = string
   description = "resource pool to put all frozen-vms"
-  default     = "frozen-vm"
+  default     = "frozen-vms"
 }
 
 variable "frozen_vm_prefix_name" {

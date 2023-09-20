@@ -5,7 +5,7 @@
 set -o errexit
 
 skip_uploading_iso=false
-
+enable_frozenvm_each_host=false
 if [ $# -lt 1 ]; then
     echo "Unexpected: Usage: $0 <packer_dir>"
     exit 1
@@ -19,6 +19,11 @@ while [[ $# -gt 1 ]]; do
         --skip-uploading-iso)
             # Set the skip_uploading_iso variable to true if the parameter is provided
             skip_uploading_iso=true
+            shift # Move to the next argument
+            ;;
+        --enable-frozenvm-each-host)
+            # Set the enable_frozenvm_each_host variable to true if the parameter is provided
+            enable_frozenvm_each_host=true
             shift # Move to the next argument
             ;;
         *)
@@ -55,4 +60,12 @@ cd "${workdir}"
 export PACKER_PLUGIN_PATH=${plugin_dir}
 packer init builds/linux/debian
 packer build -force --only vsphere-iso.linux-debian -var-file="${config_output_file}" builds/linux/debian
+
+# If enable_frozenvm_each_host is set, then clone frozen-vm to each host
+if [ "$enable_frozenvm_each_host" = true ]; then
+    echo "Cloning frozen vm to each host"
+    cd "${script_dir}"
+    python clone_frozen_vm.py "${config_output_file}"
+fi
+
 cd -

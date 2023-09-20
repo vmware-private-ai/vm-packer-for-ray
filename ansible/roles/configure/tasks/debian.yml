@@ -44,7 +44,7 @@
     sudo /usr/bin/dpkg -i --force-all /tmp/vmware-gosc_12.1.0.25580-20029049_amd64.deb >> ./dpkg.log 2>&1
 - name: "Pulling latest docker image from {{RAY_DOCKER_IMAGE}}"
   shell: |
-    sudo systemctl daemon-reload && sudo sudo systemctl restart docker && sudo docker pull {{RAY_DOCKER_IMAGE}}
+    sudo systemctl daemon-reload && sudo systemctl restart docker && sudo docker pull {{RAY_DOCKER_IMAGE}}
 - name: "Creating the Cronjob for running the script at reboot."
   shell: |
     sudo chmod +x /root/customize.sh && sudo touch /etc/crontab && sudo crontab -l; echo "@reboot /root/customize.sh" | crontab -

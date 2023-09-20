@@ -7,6 +7,7 @@ set -e
 cd "$(dirname "$0")"
 
 skip_uploading_iso=false
+enable_frozenvm_each_host=false
 
 # Loop through the command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -14,6 +15,11 @@ while [[ $# -gt 0 ]]; do
         --skip-uploading-iso)
             # Set the skip_uploading_iso variable to true if the parameter is provided
             skip_uploading_iso=true
+            shift # Move to the next argument
+            ;;
+        --enable-frozenvm-each-host)
+            # Set the enable_frozenvm_each_host variable to true if the parameter is provided
+            enable_frozenvm_each_host=true
             shift # Move to the next argument
             ;;
         *)
@@ -66,13 +72,15 @@ else
 fi
 echo "Generated key written to ${config_file}"
 
+command_in_container="bash /home/packer/scripts/run.sh /home/packer"
+
 if [ "$skip_uploading_iso" = true ]; then
-    command_in_container="bash /home/packer/scripts/run.sh /home/packer --skip-uploading-iso"
-else
-    # Run the command to upload the ISO if the parameter is not provided
-    command_in_container="bash /home/packer/scripts/run.sh /home/packer"
+    command_in_container="${command_in_container} --skip-uploading-iso"
 fi
 
+if [ "$enable_frozenvm_each_host" = true ]; then
+    command_in_container="${command_in_container} --enable-frozenvm-each-host"
+fi
 # Launch packer build
 docker run --tty --rm --name packer-builder -v \
 "$(pwd)":/home/packer ${packer_builder_image} \

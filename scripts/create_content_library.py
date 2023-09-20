@@ -16,6 +16,7 @@ from vmware.vapi.lib.connect import get_requests_connector
 from vmware.vapi.security.session import create_session_security_context
 from vmware.vapi.security.user_password import create_user_password_security_context
 from vmware.vapi.stdlib.client.factories import StubConfigurationFactory
+from pyvmomi_client import PyvmomiClient
 
 
 def get_unverified_session():
@@ -46,34 +47,11 @@ class ContentLibService:
             self.vm_datastore = config.get("vsphere_datastore")
             self.common_content_library_name = config.get(
                 "common_content_library_name")
-        self.si = self.connect_vmomi()
+        self.pyvmomi_provider = PyvmomiClient(
+            self.vsphere_endpoint,
+            self.vsphere_username,
+            self.vsphere_password)
         self.cls = self.init_content_library_service()
-
-    def connect_vmomi(self):
-        si = SmartConnect(
-            host=self.vsphere_endpoint,
-            user=self.vsphere_username,
-            pwd=self.vsphere_password,
-            sslContext=ssl._create_unverified_context(),
-        )
-        print("vmomi connect")
-        return si
-
-    def disconnect_vmomi(self):
-        Disconnect(self.si)
-
-    def get_datastore_mo(self):
-        datastore_view = self.si.content.viewManager.CreateContainerView(
-            container=self.si.content.rootFolder, type=[vim.Datastore], recursive=True
-        )
-        datastores = datastore_view.view
-        for datastore in datastores:
-            if datastore.name == self.vm_datastore:
-                print(f"found the datastore with name {self.vm_datastore}")
-                return datastore
-        raise RuntimeError(
-            f"Unexpected: cannot find the datastore with name {self.vsphere_datastore}"
-        )
 
     def connect(self):
         def get_jsonrpc_endpoint_url(host):
@@ -102,7 +80,7 @@ class ContentLibService:
         storage_backing = [
             StorageBacking(
                 type=StorageBacking.Type.DATASTORE,
-                datastore_id=self.get_datastore_mo()._moId,
+                datastore_id=self.pyvmomi_provider.get_pyvmomi_obj([vim.Datastore], self.vm_datastore)._moId,
             )
         ]
         spec = LibraryModel(
@@ -137,5 +115,3 @@ if __name__ == "__main__":
             s.create_content_lib()
     except:  # noqa: E722
         traceback.print_exc()
-    finally:
-        s.disconnect_vmomi()

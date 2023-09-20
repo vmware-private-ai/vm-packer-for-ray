@@ -57,6 +57,20 @@ variable "vsphere_host" {
   default     = null
 }
 
+// Frozen Virtual Machine Settings
+variable "frozen_vm_pool_name" {
+  type        = string
+  description = "resource pool to put all frozen-vms"
+  default     = "frozen-vms"
+}
+
+variable "frozen_vm_prefix_name" {
+  type        = string
+  description = "The prefix name of frozen-vm"
+  default     = "frozen-vm"
+}
+
+
 // Virtual Machine Settings
 
 variable "vm_guest_os_language" {

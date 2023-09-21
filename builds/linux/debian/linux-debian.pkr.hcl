@@ -197,7 +197,10 @@ build {
       "--extra-vars", "BUILD_SECRET='${var.build_key}'",
       "--extra-vars", "ANSIBLE_USERNAME=${var.ansible_username}",
       "--extra-vars", "ANSIBLE_SECRET='${var.ansible_key}'",
-      "--extra-vars", "RAY_DOCKER_IMAGE=${var.common_ray_docker_image}"
+      "--extra-vars", "RAY_DOCKER_IMAGE=${var.common_ray_docker_image}",
+      "--extra-vars", "RAY_DOCKER_REPO=${var.common_ray_docker_repo}",
+      "--extra-vars", "RAY_DOCKER_USERNAME=${var.common_ray_docker_username}",
+      "--extra-vars", "RAY_DOCKER_PASSWORD=${var.common_ray_docker_password}"
     ]
   }
 

@@ -36,6 +36,38 @@ If you would like this script to support another Linux distro, you should create
 
 Below are some common configurations which you may want to modify:
 
+### Add docker credential
+Edit the following fields of `config/vsphere.pkrvars.hcl` file to add docker crendential.
+```hcl
+common_ray_docker_image = "rayproject/ray:latest"
+common_ray_docker_repo = "docker.io"
+common_ray_docker_username = "<your-docker-username>"
+common_ray_docker_password = "<your-docker-password>"
+```
+
+### Create frozen vms for each host
+
+Create frozen vms for each host by the following command with argument `--enable-frozenvm-each-host` :
+```
+bash create-frozen-vm.sh --enable-frozenvm-each-host
+```
+and the following configuration:
+
+```hcl
+frozen_vm_pool_name     = "<frozen-vm-pool-name>"
+frozen_vm_prefix_name   = "<frozen_vm_prefix_name>"
+```
+
+Then, all frozen vms are created under resource pool `<frozen-vm-pool-name>`, with name `<frozen_vm_prefix_name>-1`,  `<frozen_vm_prefix_name>-2`... and `<frozen_vm_prefix_name>-n`
+
+### Specify frozen vm name
+Create frozen vm by the following configuration:
+```hcl
+frozen_vm_prefix_name   = "<frozen_vm_prefix_name>"
+```
+
+Then, the frozen vm is created with name `<frozen_vm_prefix_name>-1`.
+
 ### Change the password of user "ray"
 
 The default username for the Ray nodes would be "ray", we recommend you to DO NOT change that.

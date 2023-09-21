@@ -64,6 +64,10 @@ common_shutdown_timeout = "15m"
 
 // Ray docker image
 common_ray_docker_image = "rayproject/ray:latest"
+common_ray_docker_repo = ""
+common_ray_docker_username = ""
+common_ray_docker_password = ""
+
 
 // Guest Operating System Metadata
 vm_guest_os_language = "en_US"

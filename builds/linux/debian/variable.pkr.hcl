@@ -409,3 +409,18 @@ variable "common_ray_docker_image" {
   type        = string
   description = "Default Ray docker image from official Ray docker repo."
 }
+
+variable "common_ray_docker_repo" {
+  type        = string
+  description = "Registry url  of ray docker image"
+}
+
+variable "common_ray_docker_username" {
+  type        = string
+  description = "Username to login registry of Ray docker image"
+}
+
+variable "common_ray_docker_password" {
+  type        = string
+  description = "Password to login registry of Ray docker image"
+}

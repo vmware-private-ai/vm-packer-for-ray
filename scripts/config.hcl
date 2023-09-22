@@ -30,4 +30,9 @@ iso_path = "iso_files/"
 # The content library name for exporting the OVF of the Frozen VM. If the content
 # library doesn't exist, a new one will be created automatically
 common_content_library_name = "your_content_library_name"
+
+# Ray docker image, repos and credentials
 common_ray_docker_image = "rayproject/ray:2.7.0"
+common_ray_docker_repo = "ray_image_docker_repos"
+common_ray_docker_username = "username_login_docker_repos"
+common_ray_docker_password = "password_login_docker_repos"

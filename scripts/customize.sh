@@ -36,3 +36,6 @@ systemctl restart resolvconf.service
 echo "=== End of Post-Freeze ==="
 
 echo -e "\nCheck /root/network.log for details\n\n"
+
+sleep 30
+ping -c 1 vmware.com

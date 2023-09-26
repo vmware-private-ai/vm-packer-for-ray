@@ -91,7 +91,6 @@ vm_disk_size             = 51200
 vm_disk_controller_type  = ["pvscsi"]
 vm_disk_thin_provisioned = true
 vm_network_card          = "vmxnet3"
-vm_lv_var_partition_size = 10240
 
 // Removable Media Settings
 iso_path           = ""

@@ -107,7 +107,12 @@ Setting below variable to true will export the ovf to local, this will spend som
 ```hcl
 common_ovf_export_enabled = true
 ```
-  
+### Specify Disk Capacity
+Setting below variable to specify the size, in megabytes, of the hard disk to create for the frozen VM.
+```
+vm_disk_size             = 51200
+```
+
 ## Build manually
 
 You can manually do what our [one-click-script](create-frozen-vm.sh) does for you.

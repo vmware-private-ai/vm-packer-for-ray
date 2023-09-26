@@ -47,7 +47,6 @@ locals {
       vm_guest_os_keyboard     = var.vm_guest_os_keyboard
       vm_guest_os_timezone     = var.vm_guest_os_timezone
       common_data_source       = var.common_data_source
-      vm_lv_var_partition_size = var.vm_lv_var_partition_size
     })
   }
   data_source_command = var.common_data_source == "http" ? "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg" : "file=/media/ks.cfg"

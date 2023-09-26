@@ -173,12 +173,6 @@ variable "vm_network_card" {
   default     = "vmxnet3"
 }
 
-variable "vm_lv_var_partition_size" {
-  type        = number
-  description = "The size for the lv_var partition in MB. (e.g. '4096')"
-  default     = 10240
-}
-
 variable "common_vm_version" {
   type        = number
   description = "The vSphere virtual hardware version. (e.g. '19')"

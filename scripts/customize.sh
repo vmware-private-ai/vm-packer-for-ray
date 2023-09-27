@@ -5,7 +5,15 @@
 set -x
 exec 2>/root/ic-customization.log
 
-echo -e "Stop networking services ...\n"
+echo -e "Wait for cloud init is done...\n"
+
+STATUS_FILE="/var/lib/cloud/instance/boot-finished"
+
+while [ ! -f "$STATUS_FILE" ]; do
+    sleep 5
+done
+
+echo -e "Stop networking services...\n"
 
 systemctl stop networking.service
 systemctl stop resolvconf.service

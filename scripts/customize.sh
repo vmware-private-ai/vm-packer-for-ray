@@ -5,7 +5,13 @@
 set -x
 exec 2>/root/ic-customization.log
 
-echo -e "Stop networking services ...\n"
+echo -e "Wait for cloud init is done...\n"
+STATUS_FILE="/var/lib/cloud/instance/boot-finished"
+while [ ! -f "$STATUS_FILE" ]; do
+    sleep 5
+done
+
+echo -e "Stop networking services...\n"
 
 systemctl stop networking.service
 systemctl stop resolvconf.service
@@ -39,3 +45,6 @@ echo -e "\nCheck /root/network.log for details\n\n"
 
 sleep 30
 ping -c 1 vmware.com
+
+echo "Remove cronjob to make sure this script only execute once..."
+crontab -l | grep -v 'customize.sh' | crontab -

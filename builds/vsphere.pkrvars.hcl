@@ -108,3 +108,6 @@ communicator_timeout = "30m"
 
 // Instant Clone Customization Engine setup path
 instant_clone_customization_engine_path = "/dependencies/vmware-gosc_12.1.0.25580-20029049_amd64.deb"
+
+// The url for the GPU driver
+gpu_driver_download_url = ""

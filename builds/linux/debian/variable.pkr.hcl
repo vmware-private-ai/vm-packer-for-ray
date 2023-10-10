@@ -418,3 +418,9 @@ variable "common_ray_docker_password" {
   type        = string
   description = "Password to login registry of Ray docker image"
 }
+
+variable "gpu_driver_download_url" {
+  type = string
+  description = "The URL for downloading the Driver for the GPU"
+  default = ""
+}

@@ -28,5 +28,4 @@ with open(DEFAULT_CONFIG_PATH, "r") as default_config:
 with open(TARGET_FILE_PATH, "w") as target_file:
     hcl_content = hcl.dumps(target_config, indent=4)
     target_file.write(hcl_content)
-    print(f"overwritten the default variables with {source_config}")
     print(f"saved the generated json file to {TARGET_FILE_PATH}")

@@ -11,6 +11,7 @@ This guide is about how to use the scripts to build a Frozen VM on your vSphere 
 2. The machine should have ssh-keygen installed.
 3. The machine should have access to your vCenter Server of the vSphere environment.
 4. The machine should have the Internet access.
+5. You should not use the root user in the machine, that could bring permission issues.
 
 ## Build a Frozen VM
 

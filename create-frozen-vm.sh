@@ -81,8 +81,12 @@ fi
 if [ "$enable_frozenvm_each_host" = true ]; then
     command_in_container="${command_in_container} --enable-frozenvm-each-host"
 fi
+chmod o+w config
+chmod o+w manifests
 # Launch packer build
 docker run --tty --rm --name packer-builder -v \
 "$(pwd)":/home/packer ${packer_builder_image}:rw \
 bash -c "$command_in_container"
+chmod o-w config
+chmod o-w manifests
 echo "Packer build finished."

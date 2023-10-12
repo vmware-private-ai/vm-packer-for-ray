@@ -83,6 +83,6 @@ if [ "$enable_frozenvm_each_host" = true ]; then
 fi
 # Launch packer build
 docker run --tty --rm --name packer-builder -v \
-"$(pwd)":/home/packer ${packer_builder_image} \
+"$(pwd)":/home/packer ${packer_builder_image}:rw \
 bash -c "$command_in_container"
 echo "Packer build finished."

@@ -85,7 +85,7 @@ chmod o+w config
 chmod o+w manifests
 # Launch packer build
 docker run --tty --rm --name packer-builder -v \
-"$(pwd)":/home/packer ${packer_builder_image}:rw \
+"$(pwd)":/home/packer:rw ${packer_builder_image} \
 bash -c "$command_in_container"
 chmod o-w config
 chmod o-w manifests

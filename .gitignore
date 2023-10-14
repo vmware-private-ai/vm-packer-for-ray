@@ -1,5 +1,5 @@
 # The files under the below directories are auto-generated
-#config/*
-#manifests/*
+config/*
+manifests/*
 
 .idea

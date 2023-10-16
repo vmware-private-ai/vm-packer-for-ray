@@ -4,7 +4,15 @@ We welcome contributions from the community and first want to thank you for taki
 
 Please familiarize yourself with the [Code of Conduct](https://github.com/vmware/.github/blob/main/CODE_OF_CONDUCT.md) before contributing.
 
-Before you start working with vm-packer-for-ray, please read and sign our Contributor License Agreement [CLA](https://cla.vmware.com/cla/1/preview). If you wish to contribute code and you have not signed our contributor license agreement (CLA), our bot will prompt you to do so when you open a Pull Request. For any questions about the CLA process, please refer to our [FAQ]([https://cla.vmware.com/faq](https://cla.vmware.com/faq)).
+Before you start working with vm-packer-for-ray, please read and sign our Contributor License Agreement [CLA](https://cla.vmware.com/). If you wish to contribute code and you have not signed our contributor license agreement (CLA), our bot will prompt you to do so when you open a Pull Request. For any questions about the CLA process, please refer to our [FAQ]([https://cla.vmware.com/faq](https://cla.vmware.com/faq)).
+
+When you click the link for signing the CLA, please sign the individual CLA.
+
+<img src="pics/sign-cla.png">
+
+**Important: Make sure you provide all the information we ask you to provide, e.g., fill in each blank in below form.**
+
+<img src="pics/cla-information.png">
 
 ## Ways to contribute
 

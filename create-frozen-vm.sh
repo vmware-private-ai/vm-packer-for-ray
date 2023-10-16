@@ -45,6 +45,7 @@ else
   ssh-keygen -t rsa -b 2048 -f ${private_key_name} -q -N ""
   cp -f ${private_key_name}.pub ${public_key_name}
   rm -f ${private_key_name}.pub
+  echo "Generated a public key under ${public_key_name}, and generate its private key under ${private_key_name}."
   echo 'Note: When running "ray up" on another machine with the Frozen VM created by this script, above key pair must be
 copied to the same directory with the same name on the other machine.'
 fi

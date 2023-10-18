@@ -114,7 +114,7 @@ variable "vm_guest_os_type" {
 variable "vm_firmware" {
   type        = string
   description = "The virtual machine firmware. (e.g. 'efi-secure'. 'efi', or 'bios')"
-  default     = "efi-secure"
+  default     = "efi"
 }
 
 variable "vm_cdrom_type" {

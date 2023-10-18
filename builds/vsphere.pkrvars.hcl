@@ -80,7 +80,7 @@ vm_guest_os_version  = "12.0"
 vm_guest_os_type = "other5xLinux64Guest"
 
 // Virtual Machine Hardware Settings
-vm_firmware              = "efi-secure"
+vm_firmware              = "efi"
 vm_cdrom_type            = "sata"
 vm_cpu_count             = 1
 vm_cpu_cores             = 1

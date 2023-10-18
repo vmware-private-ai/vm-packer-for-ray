@@ -22,6 +22,9 @@ vmware-rpctool "instantclone.freeze"
 
 echo -e "\n=== Start Post-Freeze ==="
 
+echo "Remove cronjob to make sure this script only execute once..."
+crontab -l | grep -v 'customize.sh' | crontab -
+
 for NETDEV in /sys/class/net/e*
 do
         DEVICE_LABEL=$(basename "$(readlink -f "$NETDEV/device")")
@@ -45,6 +48,3 @@ echo -e "\nCheck /root/network.log for details\n\n"
 
 sleep 30
 ping -c 1 vmware.com
-
-echo "Remove cronjob to make sure this script only execute once..."
-crontab -l | grep -v 'customize.sh' | crontab -

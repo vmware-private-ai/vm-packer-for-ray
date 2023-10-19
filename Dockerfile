@@ -32,3 +32,4 @@ ENV PATH /home/ray/.local/bin:/home/ray/.local/pipx/shared/bin:$PATH
 RUN pip install pyhcl==0.4.5
 RUN pip install requests
 RUN pip install --upgrade git+https://github.com/vmware/vsphere-automation-sdk-python.git@v8.0.1.0
+ENV PYTHONDONTWRITEBYTECODE=1

@@ -45,6 +45,20 @@ common_ray_docker_username = "<your-docker-username>"
 common_ray_docker_password = "<your-docker-password>"
 ```
 
+### Build the GPU driver into the frozen vm
+If you specified `gpu_driver_download_url` in the [config file](scripts/config.hcl), the Packer script will download the
+GPU driver file you specified and install it into the frozen vm, so that all the Ray nodes cloned from the frozen vm
+will have GPU driver installed. This is a dependency for the Ray node to leverage your physical GPU.
+Also, some other linux dependencies, and the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html), 
+will be installed automatically if you set the url.
+
+One example of the url, which has been proved to support Nvidia Tesla V100 is:
+"https://us.download.nvidia.com/tesla/535.104.12/NVIDIA-Linux-x86_64-535.104.12.run"
+
+Note that at this moment only Nvidia GPU is supported, you should know the driver you need to download by referring
+the [Nvidia driver download website](https://www.nvidia.com/Download/index.aspx).
+
+
 ### Create frozen vms for each host
 
 Create frozen vms for each host by the following command with argument `--enable-frozenvm-each-host` :

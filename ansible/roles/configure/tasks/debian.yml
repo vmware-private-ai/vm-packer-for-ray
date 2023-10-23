@@ -58,6 +58,11 @@
 - name: "Creating the Cronjob for running the script at reboot."
   shell: |
     sudo chmod +x /root/customize.sh && sudo touch /etc/crontab && sudo crontab -l; echo "@reboot /root/customize.sh" | crontab -
+- name: "Enable the auto setting online for the hot-added CPU and memory"
+  shell: |
+    echo 'ACTION=="add", SUBSYSTEM=="cpu", ATTR{online}=="0", ATTR{online}="1"' | sudo tee /etc/udev/rules.d/94-hotplug-cpu-mem.rules
+    echo 'ACTION=="add", SUBSYSTEM=="memory", ATTR{state}=="offline", ATTR{state}="online"' | sudo tee -a /etc/udev/rules.d/94-hotplug-cpu-mem.rules
+
 # GPU related optional operations
 # url: "https://developer.download.nvidia.com/compute/cuda/12.2.1/local_installers/cuda_12.2.1_535.86.10_linux.run"\
 - name: "Block the default nouveau driver."

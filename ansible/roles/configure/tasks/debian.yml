@@ -51,7 +51,7 @@
     if [[ ! -z "{{RAY_DOCKER_USERNAME}}" && ! -z "{{RAY_DOCKER_PASSWORD}}" ]]; then
         sudo docker login {{RAY_DOCKER_REPO}}  -u {{RAY_DOCKER_USERNAME}} -p {{RAY_DOCKER_PASSWORD}} || exit
     fi
-    sudo docker pull {{RAY_DOCKER_IMAGE}} || exit
+    sudo docker pull {{RAY_DOCKER_REPO}}{{RAY_DOCKER_IMAGE}} || exit
     EOF
     sudo chmod +x /tmp/pull.sh
     sudo bash /tmp/pull.sh
@@ -85,3 +85,10 @@
     sudo nvidia-ctk runtime configure --runtime=docker
     sudo systemctl restart docker
   when: GPU_DRIVER_DOWNLOAD_URL != ""
+- name: "Download Prometheus docker image."
+  shell: |
+    sudo docker pull {{PROMETHEUS_DOCKER_IMAGE}} || exit
+- name: "Download Grafana docker image."
+  shell: |
+    sudo docker pull {{GRAFANA_DOCKER_IMAGE}} || exit
+  

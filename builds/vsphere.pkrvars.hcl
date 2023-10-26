@@ -111,3 +111,10 @@ instant_clone_customization_engine_path = "/dependencies/vmware-gosc_12.1.0.2558
 
 // The url for the GPU driver
 gpu_driver_download_url = ""
+
+// Promethues docker image
+prometheus_docker_image = "prom/prometheus"
+
+// Grafana docker image
+grafana_docker_image = "grafana/grafana-oss"
+

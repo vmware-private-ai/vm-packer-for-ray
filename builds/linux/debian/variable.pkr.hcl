@@ -424,3 +424,15 @@ variable "gpu_driver_download_url" {
   description = "The URL for downloading the Driver for the GPU"
   default = ""
 }
+
+variable "prometheus_docker_image" {
+  type = string
+  description = "Prometheus docker image from Dockerhub repo"
+  default = "prom/prometheus"
+}
+
+variable "grafana_docker_image" {
+  type = string
+  description = "Grafana docker image from Dockerhub repo"
+  default = "grafana/grafana-oss"
+}

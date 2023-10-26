@@ -50,7 +50,7 @@ locals {
     })
   }
   data_source_command = var.common_data_source == "http" ? "url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/ks.cfg" : "file=/media/ks.cfg"
-  vm_name             = "${var.frozen_vm_prefix_name}-1"
+  vm_name             = "${var.frozen_vm_prefix_name}-with-Prometheus-Grafana-Docker-Image"
   bucket_name         = replace("${var.vm_guest_os_family}-${var.vm_guest_os_name}-${var.vm_guest_os_version}", ".", "")
   bucket_description  = "${var.vm_guest_os_family} ${var.vm_guest_os_name} ${var.vm_guest_os_version}"
 }
@@ -200,7 +200,9 @@ build {
       "--extra-vars", "RAY_DOCKER_REPO=${var.common_ray_docker_repo}",
       "--extra-vars", "RAY_DOCKER_USERNAME=${var.common_ray_docker_username}",
       "--extra-vars", "RAY_DOCKER_PASSWORD=${var.common_ray_docker_password}",
-      "--extra-vars", "GPU_DRIVER_DOWNLOAD_URL=${var.gpu_driver_download_url}"
+      "--extra-vars", "GPU_DRIVER_DOWNLOAD_URL=${var.gpu_driver_download_url}",
+      "--extra-vars", "PROMETHEUS_DOCKER_IMAGE=${var.prometheus_docker_image}",
+      "--extra-vars", "GRAFANA_DOCKER_IMAGE=${var.grafana_docker_image}"
     ]
   }
 

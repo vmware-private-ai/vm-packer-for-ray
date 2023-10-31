@@ -16,14 +16,14 @@ echo -e "Stop networking services...\n"
 systemctl stop networking.service
 systemctl stop resolvconf.service
 
+echo "Remove cronjob to make sure this script only execute once..."
+crontab -l | grep -v 'customize.sh' | crontab -
+
 echo -e "Freezing ...\n"
 
 vmware-rpctool "instantclone.freeze"
 
 echo -e "\n=== Start Post-Freeze ==="
-
-echo "Remove cronjob to make sure this script only execute once..."
-crontab -l | grep -v 'customize.sh' | crontab -
 
 for NETDEV in /sys/class/net/e*
 do

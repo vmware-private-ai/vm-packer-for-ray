@@ -4,5 +4,5 @@
 ---
 - name: "Configure users on {{ ansible_facts['distribution'] }} guest operating system."
   include_tasks: linux.yml
-  when: "ansible_facts['distribution'] == 'Debian'"
+  when: ansible_os_family in ['Debian']
   

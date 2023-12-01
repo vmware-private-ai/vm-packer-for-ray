@@ -8,6 +8,10 @@ cd "$(dirname "$0")"
 
 skip_uploading_iso=false
 enable_frozenvm_each_host=false
+os=debian-12.0.0-amd64
+repository="packer-builder"
+version=latest
+
 
 # Loop through the command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -22,6 +26,11 @@ while [[ $# -gt 0 ]]; do
             enable_frozenvm_each_host=true
             shift # Move to the next argument
             ;;
+        --os)
+            # Set the os of frozen vm
+            os=$2
+            shift 2 # Move to the next argument
+            ;;
         *)
             # If the argument doesn't match --skip-uploading-iso, skip it
             shift
@@ -29,10 +38,10 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-packer_builder_image="packer-builder:latest"
+packer_builder_image="${repository}-${os}:${version}"
 # Build packer-builder image if not exists
 if [[ "$(docker images -q ${packer_builder_image} 2> /dev/null)" == "" ]]; then
-  ./build-packer-image.sh
+  ./build-packer-image.sh --os ${os}
 fi
 
 # Generate key pairs if not exists
@@ -82,12 +91,19 @@ fi
 if [ "$enable_frozenvm_each_host" = true ]; then
     command_in_container="${command_in_container} --enable-frozenvm-each-host"
 fi
+
+command_in_container="${command_in_container} --os ${os}"
+
 chmod o+w config
 chmod o+w manifests
 # Launch packer build
-docker run --tty --rm --name packer-builder -v \
+container_name=${repository}
+
+docker run --tty --rm --name ${container_name} -v \
 "$(pwd)":/home/packer:rw ${packer_builder_image} \
 bash -c "$command_in_container"
+
+
 chmod o-w config
 chmod o-w manifests
 echo "Packer build finished."

@@ -28,8 +28,6 @@ vm_guest_os_family   = "linux"
 vm_guest_os_name     = "debian"
 vm_guest_os_version  = "12.0"
 iso_path           = "debian-12.0.0-amd64-netinst.iso"
-iso_checksum_type  = "sha512"
-iso_checksum_value = "b462643a7a1b51222cd4a569dad6051f897e815d10aa7e42b68adc8d340932d861744b5ea14794daa5cc0ccfa48c51d248eda63f150f8845e8055d0a5d7e58e6"
 ```
 If you would like this script to support another Linux distro, you should create a new directory under
 [linux](builds/linux), then modify the above variables.

@@ -36,6 +36,11 @@ elif OS_TYPE == "ubuntu-22.04.3-amd64":
     target_config["vm_guest_os_version"] = "22.04-lts"
     target_config["vm_guest_os_type"] = "ubuntu64Guest"
     target_config["iso_name"] = "ubuntu-22.04.3-live-server-amd64.iso"
+elif OS_TYPE == "ubuntu-20.04.6-amd64":
+    target_config["vm_guest_os_name"] = "ubuntu"
+    target_config["vm_guest_os_version"] = "20.04-lts"
+    target_config["vm_guest_os_type"] = "ubuntu64Guest"
+    target_config["iso_name"] = "ubuntu-20.04.6-live-server-amd64.iso"
 
 with open(TARGET_FILE_PATH, "w") as target_file:
     hcl_content = hcl.dumps(target_config, indent=4)

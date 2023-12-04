@@ -25,6 +25,8 @@ if [ "$os" == "debian-12.0.0-amd64" ]; then
   iso_download_link="https://laotzu.ftp.acc.umu.se/cdimage/archive/12.0.0/amd64/iso-cd/debian-12.0.0-amd64-netinst.iso"
 elif [ "$os" == "ubuntu-22.04.3-amd64" ]; then
   iso_download_link="https://releases.ubuntu.com/jammy/ubuntu-22.04.3-live-server-amd64.iso"
+elif [ "$os" == "ubuntu-20.04.6-amd64" ]; then
+  iso_download_link="https://releases.ubuntu.com/focal/ubuntu-20.04.6-live-server-amd64.iso"
 else
   echo "Unsupported OS"
   exit 1

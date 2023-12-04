@@ -70,8 +70,11 @@ if [ "$os" == "debian-12.0.0-amd64" ]; then
     packer init builds/linux/debian
     packer build -force --only vsphere-iso.linux-debian -var-file="${config_output_file}" builds/linux/debian
 elif [ "$os" == "ubuntu-22.04.3-amd64" ]; then
-    packer init builds/linux/ubuntu
-    packer build -force --only vsphere-iso.linux-ubuntu -var-file="${config_output_file}" builds/linux/ubuntu
+    packer init builds/linux/ubuntu/22-04-lts
+    packer build -force --only vsphere-iso.linux-ubuntu -var-file="${config_output_file}" builds/linux/ubuntu/22-04-lts
+elif [ "$os" == "ubuntu-20.04.6-amd64" ]; then
+    packer init builds/linux/ubuntu/20-04-lts
+    packer build -force --only vsphere-iso.linux-ubuntu -var-file="${config_output_file}" builds/linux/ubuntu/20-04-lts
 else
   echo "Unsupported OS"
   exit 1

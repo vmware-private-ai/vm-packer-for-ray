@@ -13,6 +13,7 @@ from pyvmomi_client import PyvmomiClient
 # This is the path where we will store the iso file in our wizard container
 LOCAL_ISO_DIR = "/dependencies"
 
+
 class IsoUploader:
     def __init__(self, config_file):
         with open(config_file, "r") as f:

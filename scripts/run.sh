@@ -47,7 +47,7 @@ config_output_file="${config_dir}/vsphere.pkr.json"
 
 # Use the variables in config/config.hcl to overwrite builds/vsphere.pkrvars.hcl, then generate config/vsphere.pkr.json
 # packer can also take json file as an input.
-cd ${script_dir}
+cd "${script_dir}"
 python overwrite_vars.py "${config_input_file}" "${config_output_file}" "${os}"
 echo "end of overwrite_vars"
 

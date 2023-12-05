@@ -32,7 +32,7 @@ else
   exit 1
 fi
 
-if docker build --build-arg ISO_DOWNLOAD_LINK=${iso_download_link} -t ${repository}-${os}:${version} .; then
+if docker build --build-arg ISO_DOWNLOAD_LINK=${iso_download_link} -t ${repository}-"${os}":${version} .; then
   echo "Docker build succeeded"
 else
   echo "Docker build failed"

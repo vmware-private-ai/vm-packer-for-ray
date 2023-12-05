@@ -40,8 +40,8 @@ done
 
 packer_builder_image="${repository}-${os}:${version}"
 # Build packer-builder image if not exists
-if [[ "$(docker images -q ${packer_builder_image} 2> /dev/null)" == "" ]]; then
-  ./build-packer-image.sh --os ${os}
+if [[ "$(docker images -q "${packer_builder_image}" 2> /dev/null)" == "" ]]; then
+  ./build-packer-image.sh --os "${os}"
 fi
 
 # Generate key pairs if not exists
@@ -100,7 +100,7 @@ chmod o+w manifests
 container_name=${repository}
 
 docker run --tty --rm --name ${container_name} -v \
-"$(pwd)":/home/packer:rw ${packer_builder_image} \
+"$(pwd)":/home/packer:rw "${packer_builder_image}" \
 bash -c "$command_in_container"
 
 

@@ -11,7 +11,12 @@ enable_frozenvm_each_host=false
 os=debian-12.0.0-amd64
 repository="packer-builder"
 version=latest
-
+os_option_help_message="Invalid os option for '--os'
+Only support the following os options:
+1) debian-12.0.0-amd64
+2) ubuntu-20.04.6-amd64
+3) ubuntu-22.04.3-amd64
+"
 
 # Loop through the command-line arguments
 while [[ $# -gt 0 ]]; do
@@ -29,6 +34,10 @@ while [[ $# -gt 0 ]]; do
         --os)
             # Set the os of frozen vm
             os=$2
+            if [[ "${os}" != "debian-12.0.0-amd64" &&  "${os}" != "ubuntu-22.04.3-amd64" && "${os}" != "ubuntu-20.04.6-amd64" ]]; then
+                echo "${os_option_help_message}"
+                exit 1
+            fi
             shift 2 # Move to the next argument
             ;;
         *)

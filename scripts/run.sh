@@ -49,7 +49,6 @@ config_output_file="${config_dir}/vsphere.pkr.json"
 # packer can also take json file as an input.
 cd "${script_dir}"
 python overwrite_vars.py "${config_input_file}" "${config_output_file}" "${os}"
-echo "end of overwrite_vars"
 
 # Create a content library if it doesn't exist
 python create_content_library.py "${config_input_file}"

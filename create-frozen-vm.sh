@@ -41,8 +41,9 @@ while [[ $# -gt 0 ]]; do
             shift 2 # Move to the next argument
             ;;
         *)
-            # If the argument doesn't match --skip-uploading-iso, skip it
-            shift
+            # invalid argument
+            echo "invalid argument: ${1}"
+            exit
             ;;
     esac
 done

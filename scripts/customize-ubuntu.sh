@@ -34,7 +34,7 @@ echo "Updating Hostname ..."
 hostnamectl set-hostname "${uuid_number}"
 
 echo "Restart networking ..."
-nic=`ip addr | grep ens | head -n 1 | awk -F: '{print $2}' | tr -d ' '`
+nic=$(ip addr | grep ens | head -n 1 | awk -F: '{print $2}' | tr -d ' ')
 cat > /etc/netplan/00-installer-config.yaml << EOM
 # This is the network config written by 'subiquity'
 network:

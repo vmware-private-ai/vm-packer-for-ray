@@ -11,7 +11,7 @@ from pyVmomi import vim
 from pyvmomi_client import PyvmomiClient
 
 # This is the path where we will store the iso file in our wizard container
-LOCAL_ISO_PATH = "/dependencies/debian-12.0.0-amd64-netinst.iso"
+LOCAL_ISO_DIR = "/dependencies"
 
 
 class IsoUploader:
@@ -23,10 +23,14 @@ class IsoUploader:
             self.vsphere_password = config.get("vsphere_password")
             self.iso_datastore = config.get("common_iso_datastore")
             self.iso_path = config.get("iso_path")
+            self.local_iso_path = LOCAL_ISO_DIR + "/" + config.get("iso_name")
         self.pyvmomi_provider = PyvmomiClient(
             self.vsphere_endpoint,
             self.vsphere_username,
             self.vsphere_password)
+
+    def get_local_iso_path(self):
+        return self.local_iso_path
 
     def get_dc_mo(self, datastore_mo):
         assert self.iso_datastore
@@ -75,8 +79,10 @@ if __name__ == "__main__":
         print(f"the url for the upload is {url}")
         headers = {"Content-Type": "application/octet-stream"}
         cookie = iu.build_cookie()
-        with open(LOCAL_ISO_PATH, "rb") as f:
-            target_file_name = LOCAL_ISO_PATH.split("/")[-1]
+
+        local_iso_path = iu.get_local_iso_path()
+        with open(local_iso_path, "rb") as f:
+            target_file_name = local_iso_path.split("/")[-1]
             print("start to upload the Debian ISO file, will spend several minutes")
             res = requests.put(
                 f"{url}{target_file_name}?dcPath={dc_mo.name}&dsName={ds_mo.name}",
@@ -87,7 +93,7 @@ if __name__ == "__main__":
             )
             print(f"res is {res}")
         if 200 <= res.status_code < 300:
-            print(f"file at {LOCAL_ISO_PATH} uploaded to datastore {ds_mo}")
+            print(f"file at {local_iso_path} uploaded to datastore {ds_mo}")
         else:
             print(f"file upload with err code {res.status_code}")
             print(res.request)

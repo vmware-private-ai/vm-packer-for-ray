@@ -32,11 +32,17 @@ bash create-frozen-vm.sh
 
 This step will launch a container with dependency pre-installed, and run packer build inside the container.
 
-One of the step is to upload the Debian 12 ISO file onto the specific datastore configured in config.hcl.
-If you have already uploaded the iso file to the datastore, you can skip this step by adding an argument:
-
-```bash
-bash create-frozen-vm.sh --skip-uploading-iso
+Usage
+```
+--skip-uploading-iso
+    One of the step is to upload ISO file onto the specific datastore configured in config.hcl.If you have already uploaded the iso file to the datastore, you can skip this step by adding this.
+--enable-frozenvm-each-host
+    Create frozen vms for each host.
+--os
+    Specify the OS version of Frozen VM. It supports the following OS currently:
+    1) debian-12.0.0-amd64
+    2) ubuntu-20.04.6-amd64
+    3) ubuntu-22.04.3-amd64
 ```
 
 Once the script finishes successfully, you will be able to see the Frozen VM on vSphere, and the OVF of the Frozen VM

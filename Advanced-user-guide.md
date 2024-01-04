@@ -49,6 +49,8 @@ GPU driver file you specified and install it into the frozen vm, so that all the
 will have GPU driver installed. This is a dependency for the Ray node to leverage your physical GPU.
 Also, some other linux dependencies, and the [Nvidia container toolkit](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html), 
 will be installed automatically if you set the url.
+The driver file can also be an Nvidia vGPU driver. If you would like to use Nvidia vGPU, you need also specify
+`vgpu_license_download_url`, which pointing to an endpoint by which you can wget the .tok license file.
 
 One example of the url, which has been proved to support Nvidia Tesla V100 is:
 "https://us.download.nvidia.com/tesla/535.104.12/NVIDIA-Linux-x86_64-535.104.12.run"

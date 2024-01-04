@@ -90,3 +90,9 @@
     sudo nvidia-ctk runtime configure --runtime=docker
     sudo systemctl restart docker
   when: GPU_DRIVER_DOWNLOAD_URL != ""
+- name: "Download and register the vGPU license"
+  shell: |
+    sudo wget {{VGPU_LICENSE_DOWNLOAD_URL}} -q
+    sudo chmod 744 $(basename {{VGPU_LICENSE_DOWNLOAD_URL}})
+    sudo mv $(basename {{VGPU_LICENSE_DOWNLOAD_URL}}) /etc/nvidia/ClientConfigToken
+  when: VGPU_LICENSE_DOWNLOAD_URL != ""

@@ -1,5 +1,6 @@
 # The files under the below directories are auto-generated
 config/*
 manifests/*
+scripts/customize.sh
 
 .idea

@@ -109,3 +109,6 @@ instant_clone_customization_engine_path = "/dependencies/vmware-gosc_12.1.0.2558
 
 // The url for the GPU driver
 gpu_driver_download_url = ""
+
+// The url for the vGPU license
+vgpu_license_download_url = ""

@@ -209,7 +209,8 @@ build {
       "--extra-vars", "RAY_DOCKER_REPO=${var.common_ray_docker_repo}",
       "--extra-vars", "RAY_DOCKER_USERNAME=${var.common_ray_docker_username}",
       "--extra-vars", "RAY_DOCKER_PASSWORD=${var.common_ray_docker_password}",
-      "--extra-vars", "GPU_DRIVER_DOWNLOAD_URL=${var.gpu_driver_download_url}"
+      "--extra-vars", "GPU_DRIVER_DOWNLOAD_URL=${var.gpu_driver_download_url}",
+      "--extra-vars", "VGPU_LICENSE_DOWNLOAD_URL=${var.vgpu_license_download_url}"
     ]
   }
 

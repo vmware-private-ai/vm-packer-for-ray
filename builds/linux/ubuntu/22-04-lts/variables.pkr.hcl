@@ -428,3 +428,9 @@ variable "gpu_driver_download_url" {
   description = "The URL for downloading the Driver for the GPU"
   default     = ""
 }
+
+variable "vgpu_license_download_url" {
+  type = string
+  description = "The URL for downloading the license for Nvidia vGPU"
+  default = ""
+}

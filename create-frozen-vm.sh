@@ -104,20 +104,12 @@ fi
 
 command_in_container="${command_in_container} --os ${os}"
 
-chmod -R o+w config
-chmod -R o+w manifests
-chmod -R o+w scripts
-chmod -R o+w plugins
 # Launch packer build
 container_name=${repository}
+docker create --tty --name ${container_name} "${packer_builder_image}"
+docker cp "$(pwd)" ${container_name}:/home/packer
+docker start ${container_name}
+docker exec --tty ${container_name} bash -c "$command_in_container"
 
-docker run --tty --rm --name ${container_name} -v \
-"$(pwd)":/home/packer:rw "${packer_builder_image}" \
-bash -c "$command_in_container"
-
-
-chmod -R o-w config
-chmod -R o-w manifests
-chmod -R o-w scripts
-chmod -R o-w plugins
 echo "Packer build finished."
+docker rm -f ${container_name}

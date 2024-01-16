@@ -408,6 +408,14 @@ variable "common_ray_docker_image" {
   description = "Default Ray docker image from official Ray docker repo."
 }
 
+// Custom docker images
+
+variable "common_custom_docker_images" {
+  type        = string
+  description = "Any additional docker images you want to pull"
+}
+
+
 variable "common_ray_docker_repo" {
   type        = string
   description = "Registry url  of ray docker image"

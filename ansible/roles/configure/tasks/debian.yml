@@ -44,7 +44,7 @@
     sudo /usr/bin/dpkg -i --force-all /tmp/vmware-gosc_12.1.0.25580-20029049_amd64.deb >> ./dpkg.log 2>&1
 - name: "Pulling latest docker image from {{RAY_DOCKER_IMAGE}}"
   shell: |
-    sudo tee /tmp/pull.sh << EOF
+    sudo tee /tmp/pull-ray-image.sh << EOF
     #!/bin/bash
     sudo systemctl daemon-reload  || exit
     sudo systemctl restart docker || exit
@@ -53,8 +53,23 @@
     fi
     sudo docker pull {{RAY_DOCKER_IMAGE}} || exit
     EOF
-    sudo chmod +x /tmp/pull.sh
-    sudo bash /tmp/pull.sh
+    sudo chmod +x /tmp/pull-ray-image.sh
+    sudo bash /tmp/pull-ray-image.sh
+- name: "Pulling custom docker image from {{CUSTOM_DOCKER_IMAGES}}"
+  shell: |
+    sudo tee /tmp/pull-custom-image.sh << EOF
+    #!/bin/bash
+    IFS=","
+    CUSTOM_DOCKER_IMAGES="{{CUSTOM_DOCKER_IMAGES}}"
+    CUSTOM_DOCKER_IMAGE_ARR=(\$CUSTOM_DOCKER_IMAGES)
+    for CUSTOM_DOCKER_IMAGE in \${CUSTOM_DOCKER_IMAGE_ARR[@]}
+    do
+      sudo docker pull \${CUSTOM_DOCKER_IMAGE} || exit
+    done
+    EOF
+    sudo chmod +x /tmp/pull-custom-image.sh
+    sudo bash /tmp/pull-custom-image.sh
+  when: CUSTOM_DOCKER_IMAGES != ""
 - name: "Creating the Cronjob for running the script at reboot."
   shell: |
     sudo chmod +x /root/customize.sh && sudo touch /etc/crontab && sudo crontab -l; echo "@reboot /root/customize.sh" | crontab -

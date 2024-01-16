@@ -64,6 +64,7 @@ common_shutdown_timeout = "15m"
 
 // Ray docker image
 common_ray_docker_image = "rayproject/ray:latest"
+common_custom_docker_images = ""
 common_ray_docker_repo = ""
 common_ray_docker_username = ""
 common_ray_docker_password = ""

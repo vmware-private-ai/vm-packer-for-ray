@@ -401,8 +401,6 @@ variable "common_custom_docker_images" {
   description = "Any additional docker images you want to pull"
 }
 
-
-
 variable "common_ray_docker_repo" {
   type        = string
   description = "Registry url  of ray docker image"
